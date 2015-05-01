@@ -1,8 +1,8 @@
 <html>
 	<head>
 		<title>Laravel</title>
-		
-		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 
 		<style>
 			body {
@@ -13,7 +13,7 @@
 				color: #B0BEC5;
 				display: table;
 				font-weight: 100;
-				font-family: 'Lato';
+                font-family: 'Droid Sans', sans-serif;
 			}
 
 			.container {
@@ -33,6 +33,7 @@
 			}
 
 			.quote {
+                font-family: 'Droid Sans', sans-serif;
 				font-size: 24px;
 			}
 		</style>
@@ -40,7 +41,7 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Laravel 5</div>
+				<div class="title"><img src="/images/devspark.png"/></div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
 		</div>
