@@ -1,3 +1,9 @@
+# Folders
+/vendor
+/node_modules
+.idea
+
+# Files
 /bootstrap/compiled.php
 .env.*.php
 .env.php
