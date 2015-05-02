@@ -10,7 +10,6 @@ use Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-//use Illuminate\Support\Image;
 use App\Models\Image;
 
 
