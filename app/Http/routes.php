@@ -19,3 +19,13 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+/*
+ * CRUD Imagenes
+ */
+Route::resource('images','ImageController' );
+#Route to delete an image
+Route::get('images/{id}/delete', [
+    'as' => 'images.delete',
+    'uses' => 'ImageController@destroy',
+]); 

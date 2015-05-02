@@ -144,6 +144,11 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
+		/*
+		 * New providers 1-May
+		 */
+		'Illuminate\Html\HtmlServiceProvider',
+		'Laracasts\Flash\FlashServiceProvider',
 
 	],
 
@@ -192,6 +197,12 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+		/*
+		 *  CRUD GENERATOR 18-ABR-2015
+		 */
+		'Form'  => 'Illuminate\Html\FormFacade',
+		'HTML'  => 'Illuminate\Html\HtmlFacade',
+		'Flash' => 'Laracasts\Flash\Flash',
 
 	],
 
