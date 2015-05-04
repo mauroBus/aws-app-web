@@ -1,8 +1,10 @@
 @extends('app')
 
 @section('content')
-  <div class="col-md-10  col-md-offset-1">
-    @include('flash::message')
+  <div class="row">
+    <div class="col-md-10  col-md-offset-1">
+      @include('flash::message')
+    </div>
   </div>
   <!-- Main content -->
   <div class="row">
