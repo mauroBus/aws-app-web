@@ -11,7 +11,7 @@
   <tbody>	
     @foreach($images as $image)
       <tr>
-        <td><img src="{!! '../ImgUploads/'.$image->FileName !!}"></td>
+        <td><img src="{!! '../ImgUploads/'.$image->FileName !!}" style="max-width:200px;"></td>
         <td>{!! $image->Descripcion !!}</td>
         <td>{!! $image->FileName !!}</td>
         <td>{!! $image->Tags !!}</td>
