@@ -11,7 +11,17 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		//
+		/*
+		 * CONFIGURATION FOR MONGODB
+		 */
+
+		\Purekid\Mongodm\MongoDB::setConfigBlock('default', array(
+	    	'connection' => array(
+	       	'hostnames' => 'localhost',
+	        'database'  => 'AWS',
+	        'options'  => array()
+	    )
+		));
 	}
 
 	/**

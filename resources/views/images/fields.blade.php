@@ -1,13 +1,13 @@
 <div class="panel-body">
 
     <!--- desc Field -->
-    <div class="form-group {{ $errors->has('Descripcion') ? 'has-error' : '' }} " >
-        {!! Form::label('Descripcion', 'Description:') !!}
+    <div class="form-group {{ $errors->has('Description') ? 'has-error' : '' }} " >
+        {!! Form::label('Description', 'Description:') !!}
         <div class="input-group">
-            {!! Form::text('Descripcion', null, ['class' => 'form-control']) !!}
+            {!! Form::text('Description', null, ['class' => 'form-control']) !!}
             <div class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></div>
         </div><!-- /.input group -->
-        {!! $errors->first('Descripcion', '<span class="help-block">:message</span>') !!}
+        {!! $errors->first('Description', '<span class="help-block">:message</span>') !!}
     </div>
 
     <!-- tags Field -->

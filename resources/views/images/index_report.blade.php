@@ -11,10 +11,10 @@
   <tbody>	
     @foreach($images as $image)
       <tr>
-        <td><img src="{!! '../ImgUploads/'.$image->FileName !!}" style="max-width:200px;"></td>
-        <td>{!! $image->Descripcion !!}</td>
+        <td><img src="{!! '/ImgUploads/'.$image->FileName !!}" style="max-width:200px;"></td>
+        <td>{!! $image->Description !!}</td>
         <td>{!! $image->FileName !!}</td>
-        <td>{!! $image->Tags !!}</td>
+        <td></td>
         <td class="col-centered">
         <a href="{!! $image->FileName !!}" class="btn btn-default" role="button" download><i class="glyphicon glyphicon-download-alt"></i></a>
         <a href="{!! route('images.delete', [$image->id]) !!}" class="btn btn-default" role="button" onclick="return confirm('Do you want to delete this image?')"><i class="glyphicon glyphicon-trash"></i></a>

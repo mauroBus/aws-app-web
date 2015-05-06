@@ -8,3 +8,4 @@
 .env.*.php
 .env.php
 .env
+.env - Copy.example

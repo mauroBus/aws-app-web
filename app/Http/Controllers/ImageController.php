@@ -21,7 +21,7 @@ class ImageController extends Controller
 	private $imageRepository;
 
 	function __construct(ImageRepository $imageRepo)
-	{
+	{ 
 		$this->imageRepository = $imageRepo;
 	}
 
@@ -58,42 +58,58 @@ class ImageController extends Controller
 	{
         #All the fields that were submited
 		$input = $request->all();
-		#Check for File field
-		$file = Request::file('File');
-		#Look for file extension
-		$ext = $file->getClientOriginalExtension();
-		#Determine Thubnail name
-		$thumbName = str_replace(".$ext", "_thumb.$ext", $file->getClientOriginalName());
-		#Save uploaded file
-		Storage::disk('local')->put($file->getClientOriginalName(),  File::get($file));
-		#Save thumbnail
-		/*
- 		 * TODO: Thumbnail Creation
-		 */
 
-		#Moving the files into public folder
-		$file->move('ImgUploads/', $file->getClientOriginalName());
-		
-		/*
- 		 * TODO: S3 Management
-		 */
-		/* S3
-			$s3 = Storage::disk('s3');
-		 	$s3->put('your/s3/path/photo.jpg', file_get_contents($uploadedFile));
-		 */
+		if ( Request::hasFile('File') and Request::file('File')->isValid() ) {
+			#Check for File field
+			$file = Request::file('File');
 
-		#Save Image metadata into DB
-		$imageFile = new Image();
-		//$imageFile->mime = $file->getClientMimeType();
-		$imageFile->Filename = $file->getClientOriginalName();
+			#Validate it is a valide image extension
+			 #It was done with $rules on request
 
-		$imageFile->Descripcion = $input['Descripcion'];
-		$imageFile->Tags = $input['Tags'];
+			#Creating a random name of image to store it
+			$fileName = rand(11111,99999).'_'.$file->getClientOriginalName(); // renaming image
+			
+			#Save thumbnail
+			/*
+	 		 * This step should be done on AWS: Thumbnail Creation
+			 */
 
-		$imageFile->save();
+			#Moving the files into public folder
+			$file->move('ImgUploads/', $fileName);
 
-		#Message
-		Flash::message('Image uploaded.');
+			#Get image metadata
+			list($width, $height, $type, $attr) = getimagesize('ImgUploads/'.$fileName);
+
+			/*
+	 		 * TODO: S3 Management
+			 */
+			/* S3
+				$s3 = Storage::disk('s3');
+			 	$s3->put('your/s3/path/photo.jpg', file_get_contents($uploadedFile));
+			 */
+
+			#Process the TAGS into array type
+			$Tags = explode(" ", $input['Tags']); 	
+
+			#Save Image metadata into DB
+			$imageFile = new Image();
+			$imageFile->FileName 		= $fileName;
+			$imageFile->Description 	= $input['Description'];
+			$imageFile->MimeType 		= $file->getClientMimeType();
+			$imageFile->OriginalName 	= $file->getClientOriginalName();
+			$imageFile->Size 			= $file->getClientSize();
+			$imageFile->Tags 			= $Tags;
+		    $imageFile->Date 			= strtotime("Today");
+		    $imageFile->Width 			= $width;
+		    $imageFile->Height			= $height;
+
+			$imageFile->save();
+
+			#Message
+			Flash::message('Image uploaded.');
+		} else {
+			Flash::message('Image NOT uploaded.');
+		}
 		return redirect(route('images.index'));
 		
 	}

@@ -24,11 +24,19 @@ class ImageRepository
 	 *
 	 * @return Image
 	 */
-	public function store($input)
+	/*public function store($input)
 	{
 
-		return Image::create($input);
-	}
+		//return Image::create($input);
+		$image = new Image();
+	    $image->name 		= $input[''];
+	    $image->date 		= $input[''];
+	    $image->width 		= $input[''];
+	    $image->height		= $input[''];
+	    $image->tags 		= $input['Tags'];
+	    $image->description = $input['Descripcion'];
+	    $image->save();
+	}*/
 
 	/**
 	 * Find Image by given id
@@ -39,7 +47,7 @@ class ImageRepository
 	 */
 	public function findImageById($id)
 	{
-		return Image::find($id);
+		return Image::id($id);
 	}
 
 	/**

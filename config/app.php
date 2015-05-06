@@ -149,6 +149,10 @@ return [
 		 */
 		'Illuminate\Html\HtmlServiceProvider',
 		'Laracasts\Flash\FlashServiceProvider',
+		/* 
+		 * MONGO
+		 */
+		
 
 	],
 
