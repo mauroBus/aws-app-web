@@ -23,6 +23,11 @@ Route::controllers([
 /*
  * CRUD Imagenes
  */
+#Route to delete an image
+Route::post('images/search', [
+    'as' => 'images.search',
+    'uses' => 'ImageController@report',
+]); 
 
 #Routes for all the servicies about IMAGES => http://laravel.com/docs/5.0/controllers
 Route::resource('images','ImageController' );

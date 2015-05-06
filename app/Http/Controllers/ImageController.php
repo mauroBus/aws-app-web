@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Requests\CreateImageRequest;
+use App\Http\Requests\ListImageRequest;
 use App\Libraries\Repositories\ImageRepository;
 use Response;
 
@@ -31,11 +32,38 @@ class ImageController extends Controller
 	 * @return Response
 	 */
 	public function index()
-	{
+	{ 
 		$images = $this->imageRepository->all();
 
 		return view('images.index')->with('images', $images);
 	}
+
+	/**
+	 * Display a listing of certain images.
+	 *
+	 * @return Response
+	 */
+	public function report(ListImageRequest $request)
+	{ 
+		 #All the fields that were submited
+		$input = $request->all();
+		$SearchCriteria = $input['SearchCriteria'];
+		if( $SearchCriteria !== '' ) {  
+			$images = $this->imageRepository->find(
+				array( 
+			     '$or' => array( 
+			      array('Tags' => array('$regex' => $input['SearchCriteria'] )), /*Serch with LIKE*/
+			      array('Description' => array('$regex' => $input['SearchCriteria'] )) /*Serch with LIKE*/
+			     )
+			 	)
+			);
+
+		} else {
+			$images = $this->imageRepository->all();
+		}
+
+		return view('images.index',compact('images','SearchCriteria'));
+	}	
 
 	/**
 	 * Show the form for upload a new Image.
@@ -75,10 +103,10 @@ class ImageController extends Controller
 			 */
 
 			#Moving the files into public folder
-			$file->move('ImgUploads/', $fileName);
+			$file->move(config('app.ImgUploadFolder'), $fileName);
 
 			#Get image metadata
-			list($width, $height, $type, $attr) = getimagesize('ImgUploads/'.$fileName);
+			list($width, $height, $type, $attr) = getimagesize(config('app.ImgUploadFolder').$fileName);
 
 			/*
 	 		 * TODO: S3 Management

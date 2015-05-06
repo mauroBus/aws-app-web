@@ -8,7 +8,17 @@ class ImageRepository
 {
 
 	/**
-	 * Returns all Servicios
+	 * Returns all Images that match with a criteria
+	 *
+	 * @return 
+	 */
+	public function find($params)
+	{
+		return Image::find($params);
+	}
+
+ 	/**
+	 * Returns all Images
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 */

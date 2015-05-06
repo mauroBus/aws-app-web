@@ -16,8 +16,19 @@
           </h3>
         </div><!-- /.box-header -->
         <div class="panel-body">
+          {!! Form::open(['route' => 'images.search']) !!}              
+          <div class="row">
+            <div class="col-md-6">        
+              <div class="input-group">
+                  <input type="text" name="SearchCriteria" value="{!! $SearchCriteria !!}" class="form-control" placeholder="Search.." aria-describedby="sizing-addon2">
+                  <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+              </div>
+            </div>
+          </div>
+          {!! Form::close() !!}                  
+
           @if($images->isEmpty())
-            <div class="well text-center">We didnt found images</div>
+            <div class="well text-center" style="margin-top:20px;">We didnt found images</div>
           @else
             <div class="row">
               <div class="col-md-12">
