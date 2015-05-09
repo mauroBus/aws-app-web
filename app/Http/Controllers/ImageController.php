@@ -32,10 +32,18 @@ class ImageController extends Controller
 	 * @return Response
 	 */
 	public function index()
-	{ 
-		$images = $this->imageRepository->all();
+	{
+        try{
+            $images = $this->imageRepository->all();
+        } catch (\Exception $e) {
+            $images = false;
+        }
 
-		return view('images.index')->with('images', $images);
+        if(!$images || $images->count() == 0 ){
+            return redirect('images/create');
+        }
+
+		return view('images.index')->with('images', $images)->with('SearchCriteria','');
 	}
 
 	/**
