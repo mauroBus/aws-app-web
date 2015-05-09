@@ -14,12 +14,13 @@ class AppServiceProvider extends ServiceProvider {
 		/*
 		 * CONFIGURATION FOR MONGODB
 		 */
+        $_mongodb = $this->app->config->get('app.mongodb');
 
 		\Purekid\Mongodm\MongoDB::setConfigBlock('default', array(
 	    	'connection' => array(
-	       	'hostnames' => 'localhost',
-	        'database'  => 'AWS',
-	        'options'  => array()
+	       	'hostnames' => $_mongodb['hostnames'],
+	        'database'  => $_mongodb['database'],
+            'options'  => array('username' => $_mongodb['username'], 'password' => $_mongodb['password'], 'authSource' => $_mongodb['database']),
 	    )
 		));
 	}
