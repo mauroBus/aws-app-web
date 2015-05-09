@@ -41,7 +41,7 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title"><img src="/images/devspark.png"/></div>
+				<div class="title"><img src="/img/devspark.png"/></div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
 		</div>
