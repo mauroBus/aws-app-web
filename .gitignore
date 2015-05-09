@@ -9,3 +9,4 @@
 .env.php
 .env
 .env - Copy.example
+*.phar
