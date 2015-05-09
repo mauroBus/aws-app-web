@@ -2,6 +2,22 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | MONGODB CREDENTIALS - CUSTOM
+    |--------------------------------------------------------------------------
+    |
+    | Default folder to upload images
+    |
+    */
+    'mongodb' => [
+
+        'hostnames' => env('MONGODB_HOST', 'localhost:27017'),
+        'username'  => env('MONGODB_USERNAME', ''),
+        'password'  => env('MONGODB_PASSWORD', ''),
+        'database'  => env('MONGODB_DATABASE', ''),
+
+    ],
 	/*
 	|--------------------------------------------------------------------------
 	| FOLDER TO UPLOAD IMAGES - CUSTOM
