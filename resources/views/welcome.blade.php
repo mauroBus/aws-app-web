@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<title>Laravel</title>
+		<title>Best Talent</title>
 
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-
+        <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 		<style>
 			body {
 				margin: 0;
@@ -41,8 +41,10 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title"><img src="/img/devspark.png"/></div>
+				<div class="title"><img src="/img/besttalent.png"/></div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
+                <br/>
+                <button type="button" class="btn btn-primary" onclick="javascript:window.location='/home';">Login</button>
 			</div>
 		</div>
 	</body>
