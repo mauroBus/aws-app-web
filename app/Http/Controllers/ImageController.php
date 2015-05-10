@@ -22,7 +22,8 @@ class ImageController extends Controller
 	private $imageRepository;
 
 	function __construct(ImageRepository $imageRepo)
-	{ 
+	{
+        $this->middleware('auth');
 		$this->imageRepository = $imageRepo;
 	}
 
