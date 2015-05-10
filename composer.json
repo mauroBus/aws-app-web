@@ -8,7 +8,8 @@
 		"laravel/framework": "5.0.*",
     	"laracasts/flash": "~1.3",
     	"illuminate/html": "~5.0",
-    	"purekid/mongodm": "dev-master"
+    	"purekid/mongodm": "dev-master",
+        "aws/aws-sdk-php": "~2.8"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
