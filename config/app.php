@@ -34,7 +34,9 @@ return [
         'region'  => env('AWS_REGION', ''),
         'bucket1' => env('AWS_BUCKET1', ''),
         'bucket2' => env('AWS_BUCKET2', ''),
-        'bucket3' => env('AWS_BUCKET3', '')
+        'bucket3' => env('AWS_BUCKET3', ''),
+        'publicbucket' => env('AWS_PUBLICBUCKET', '')
+
     ],
     
 	/*
