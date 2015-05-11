@@ -18,6 +18,25 @@ return [
         'database'  => env('MONGODB_DATABASE', ''),
 
     ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | AWS CREDENTIALS - CUSTOM
+    |--------------------------------------------------------------------------
+    |
+    | Default bucket to upload images
+    |
+    */
+    'AWS' => [
+        'key' => env('AWS_KEY', ''),
+        'secret'  => env('AWS_SECRET', ''),
+        'region'  => env('AWS_REGION', ''),
+        'bucket1' => env('AWS_BUCKET1', ''),
+        'bucket2' => env('AWS_BUCKET2', ''),
+        'bucket3' => env('AWS_BUCKET3', '')
+    ],
+    
 	/*
 	|--------------------------------------------------------------------------
 	| FOLDER TO UPLOAD IMAGES - CUSTOM

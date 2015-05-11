@@ -35,7 +35,8 @@ class Image extends Model {
         'Width' 	=> array('default'=>0,'type'=>'integer'),
         'Height' 	=> array('default'=>0,'type'=>'integer'),
         'Tags' 		=> array('type'=>'array'),
-        'Description' => array('type'=>'string')
+        'Description' => array('type'=>'string'),
+        'S3Url' 	=> array('type'=>'string')
     );
 
 /*

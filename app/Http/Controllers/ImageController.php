@@ -11,8 +11,8 @@ use Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-//use Illuminate\Support\Image;
 use App\Models\Image;
+use Aws\S3\S3Client;
 
 
 class ImageController extends Controller
@@ -37,6 +37,7 @@ class ImageController extends Controller
         try{
             $images = $this->imageRepository->all();
         } catch (\Exception $e) {
+        	dd($e->getMessage());
             $images = false;
         }
 
@@ -117,13 +118,8 @@ class ImageController extends Controller
 			#Get image metadata
 			list($width, $height, $type, $attr) = getimagesize(config('app.ImgUploadFolder').$fileName);
 
-			/*
-	 		 * TODO: S3 Management
-			 */
-			/* S3
-				$s3 = Storage::disk('s3');
-			 	$s3->put('your/s3/path/photo.jpg', file_get_contents($uploadedFile));
-			 */
+			# UPDLOAD IMAGE INTO S3 BUCKETS
+			list($S3FileName,$S3Url) = $this->uploadToS3($fileName, config('app.ImgUploadFolder').$fileName);
 
 			#Process the TAGS into array type
 			$Tags = explode(" ", $input['Tags']); 	
@@ -135,6 +131,7 @@ class ImageController extends Controller
 			$imageFile->MimeType 		= $file->getClientMimeType();
 			$imageFile->OriginalName 	= $file->getClientOriginalName();
 			$imageFile->Size 			= $file->getClientSize();
+			$imageFile->S3Url 			= $S3Url;
 			$imageFile->Tags 			= $Tags;
 		    $imageFile->Date 			= strtotime("Today");
 		    $imageFile->Width 			= $width;
@@ -150,6 +147,48 @@ class ImageController extends Controller
 		return redirect(route('images.index'));
 		
 	}
+
+
+	/**
+	 * UPLOAD A FILE INTO AWS S3
+	 *
+	 * @return
+	 */
+	private function uploadToS3($keyname, $realpath)
+    {
+    	/*There MUST BE 3 buckets and select 1 of them to upload the img*/
+        $buckets = [ config('app.AWS.bucket1'),
+       				 config('app.AWS.bucket2'),
+        			 config('app.AWS.bucket3')
+        		];
+		/*Select 1 bucket randomly */		
+		$bucket = $buckets[ array_rand( $buckets ) ];
+
+        $pathToFile = $realpath;
+
+        $s3 = S3Client::factory(array(
+            'key' => config('app.AWS.key'),
+            'secret' => config('app.AWS.secret'),
+            'region' => config('app.AWS.region'),
+
+        ));
+
+        try {
+            // Upload data.
+            $result = $s3->putObject(array(
+                'Bucket' => $bucket,
+                'Key' => $keyname,
+                'Body' => fopen($pathToFile, 'r+'),
+            ));
+
+            // Print the URL to the object.
+            return array($keyname,$result['ObjectURL']);
+        } catch (S3Exception $e) {
+            //$cr = new CommonResponse(500, $e->getMessage());
+
+            return response()->json($e->getMessage(), $e->getCode());
+        }
+    }
 
 	/**
 	 * Display the specified image.
