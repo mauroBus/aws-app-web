@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Image;
 use Aws\S3\S3Client;
+#use Aws\DynamoDb\DynamoDbClient;
+use App\Models\ImageDynamoDB;
 
 
 class ImageController extends Controller
@@ -37,7 +39,6 @@ class ImageController extends Controller
         try{
             $images = $this->imageRepository->all();
         } catch (\Exception $e) {
-        	dd($e->getMessage());
             $images = false;
         }
 
@@ -138,6 +139,11 @@ class ImageController extends Controller
 		    $imageFile->Height			= $height;
 
 			$imageFile->save();
+			$MongoId = (string)$imageFile->getId();
+
+			//Save into Dynamo
+			$imageDynamoFile 				= new ImageDynamoDB(config('app.AWS.key'),config('app.AWS.secret'),config('app.AWS.region'));
+			$imageDynamoFile->addItem($MongoId,$fileName,strtotime("Today"),$width,$height,$Tags,$input['Description'],$S3Url);
 
 			#Message
 			Flash::message('Image uploaded.');
@@ -237,7 +243,7 @@ class ImageController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function update($id, CreateImageRequest $request)
+	/*public function update($id, CreateImageRequest $request)
 	{
 		$image = $this->imageRepository->findImageById($id);
 
@@ -252,7 +258,7 @@ class ImageController extends Controller
 		Flash::message('Image updated.');
 
 		return redirect(route('images.index'));
-	}
+	}*/
 
 	/**
 	 * Remove the specified Image from storage.
